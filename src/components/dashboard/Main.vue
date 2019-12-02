@@ -51,7 +51,7 @@
                 Алексей
               </template>
               <b-dropdown-item>My Profile</b-dropdown-item>
-              <b-dropdown-item>My projects <b-badge pill variant="secondary">13</b-badge></b-dropdown-item>
+              <b-dropdown-item to="/projects">My projects <b-badge pill variant="secondary">13</b-badge></b-dropdown-item>
               <b-dropdown-item>Settings</b-dropdown-item>
               <b-dropdown-item to="/logout">Logout</b-dropdown-item>
             </b-dropdown>

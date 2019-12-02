@@ -30,6 +30,7 @@ const routes = [
     path: '/logout',
     name: 'logout',
     beforeEnter: (to, from, next) => {
+      Vue.prototype.$http.post('auth/logout');
       store.commit('auth/logout');
       next('/login')
     }
