@@ -7,7 +7,12 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import 'es6-promise/auto'
-import '@fortawesome/fontawesome-free/css/all.css'
+import { library, config } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+config.searchPseudoElements = true;
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Vuelidate);
 Vue.use(Vuex);
@@ -16,6 +21,9 @@ Vue.prototype.$http = Axios.create({
   baseURL: `https://citron.webmadness.ru/api/`,
   headers: {}
 });
+
+Vue.prototype.$fontAwesome = library;
+
 if (store.getters['auth/isAuth']) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + store.getters['auth/getToken'];
 }

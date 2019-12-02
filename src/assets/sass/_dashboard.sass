@@ -1,3 +1,9 @@
+#app .main
+  background: #f1f2f7
+  display: table
+  font-family: 'Open Sans', sans-serif !important
+  font-size: 16px
+  width: 100%
 aside.left-panel
   background: #272c33
   display: table-cell
@@ -33,9 +39,10 @@ aside.left-panel
       float: none
       text-align: center
       width: 100%
+
       .navbar-brand
         border-bottom: 1px solid #4e4e52
-        color: #f1f2f7!important
+        color: #f1f2f7 !important
         font-family: open sans, sans-serif
         font-size: 22px
         float: none
@@ -49,33 +56,62 @@ aside.left-panel
         justify-content: center
         align-items: center
         position: relative
+
         .img
           max-width: 160px
+
     .navbar-nav
       float: none
       position: relative
-      >.active
-        >a
-          color: #d7d9e3!important
-        .menu-icon
-          color: #fff!important
-      li
+      .menu-element
+        padding: 10px 0
         width: 100%
-
-        >a
-          background: 0 0!important
-          color: #c8c9ce!important
-          display: inline-block
-          font-family: open sans, sans-serif
-          font-size: 14px
-          line-height: 30px
-          padding: 10px 0
-          position: relative
+        display: inline-block
+        &.active a span
+          color: #fff
+        .dropdown-menu
+          background: transparent
+          border: 0
+          padding: 0 0 0 35px
+          transform: unset !important
           width: 100%
+          position: static !important
+          a
+            &:focus, &:hover
+              background: transparent
+
+        a, button
+          display: flex
+          align-items: center
+          color: #c8c9ce !important
+          text-decoration: none
+          padding: 0
+          width: 100%
+          &:hover
+            color: #fff !important
           .menu-icon
-            color: #8b939b
-            float: left
-            margin-top: 8px
-            width: 55px
-            text-align: left
-            z-index: 9
+            left: 0
+          span
+            text-align: center
+            font-size: 14px !important
+            margin-left: 20px
+            max-width: 200px
+          &::after
+            position: absolute
+            right: 0
+            transition: 0.2s transform
+            transform: rotate(-90deg)
+          &[aria-expanded='true']
+            &::after
+              transform: rotate(0)
+div.right-panel
+  display: table-cell
+  padding-left: 0 !important
+  transition: all .35s ease
+  header.header
+    background: #fff
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15)
+    clear: both
+    display: inline-block
+    padding: 15px 20px 13px 20px
+    width: 100%
