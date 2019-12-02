@@ -49,16 +49,11 @@
             <b-dropdown right class="user-area float-right">
               <template v-slot:button-content>
                 Алексей
-                <div class="user-menu dropdown-menu" x-placement="bottom-start"
-                     style="position: absolute; transform: translate3d(-88px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-                  <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
-                  <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span
-                          class="count">13</span></a>
-                  <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-                  <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
-                </div>
               </template>
               <b-dropdown-item>My Profile</b-dropdown-item>
+              <b-dropdown-item>My projects <b-badge pill variant="secondary">13</b-badge></b-dropdown-item>
+              <b-dropdown-item>Settings</b-dropdown-item>
+              <b-dropdown-item to="/logout">Logout</b-dropdown-item>
             </b-dropdown>
             <div class="language-select dropdown" id="language-select">
               <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"

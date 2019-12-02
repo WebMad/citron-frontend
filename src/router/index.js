@@ -27,6 +27,14 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
+    path: '/logout',
+    name: 'logout',
+    beforeEnter: (to, from, next) => {
+      store.commit('auth/logout');
+      next('/login')
+    }
+  },
+  {
     path: '/projects',
     name: 'projects',
     component: () => import('../views/Projects.vue')
