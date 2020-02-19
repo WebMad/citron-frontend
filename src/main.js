@@ -18,8 +18,8 @@ Vue.use(Vuelidate);
 Vue.use(Vuex);
 
 Vue.prototype.$http = Axios.create({
-  // baseURL: 'https://www.asukasan.tk:8282/api/',//`https://citron.webmadness.ru/api/`,
-  baseURL: 'http://citron/api/',//`https://citron.webmadness.ru/api/`,
+  baseURL: 'https://www.asukasan.tk:8282/api/',//`https://citron.webmadness.ru/api/`,
+  // baseURL: 'http://citron/api/',//`https://citron.webmadness.ru/api/`,
   headers: {}
 });
 

@@ -49,7 +49,7 @@
         <div class="right-panel">
             <header class="header">
                 <div class="header-menu row">
-                    <div class="col">
+                    <div class="col-9">
                         <b-dropdown left>
                             <template v-slot:button-content>
                                 <font-awesome-icon icon="bell"/><b-badge style="margin-left: 5px" variant="light">{{ invites.length }}</b-badge>
@@ -69,7 +69,7 @@
                                 <p v-if="invites" align="center">Нет уведомлений</p>
                             </template>
                         </b-dropdown>
-                        <b-dropdown class="ml-3" left>
+                        <b-dropdown class="ml-1" left>
                             <template v-slot:button-content>
                                 <font-awesome-icon icon="envelope"/><b-badge style="margin-left: 5px" variant="light">0</b-badge>
                             </template>
@@ -78,7 +78,7 @@
                             </template>
                         </b-dropdown>
                     </div>
-                    <div class="col">
+                    <div class="col-3">
                         <b-dropdown variant="primary" right class="user-area float-right">
                             <template v-slot:button-content>
                                 {{ getUser().name }}
