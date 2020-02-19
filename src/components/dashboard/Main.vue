@@ -3,11 +3,12 @@
     <aside id="left-panel" class="left-panel">
       <nav class="navbar navbar-expand-sm navbar-default">
         <div class="navbar-header">
-          <a class="navbar-brand">
-            Citron System
-          </a>
+          <span class="navbar-brand">
+            <span>Citron System</span>
+            <b-nav-toggle target="main-menu"><font-awesome-icon icon="bars"/></b-nav-toggle>
+          </span>
         </div>
-        <div id="main-menu" class="main-menu collapse navbar-collapse">
+        <b-collapse id="main-menu" class="main-menu show navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="menu-element">
               <a href="#">
@@ -31,55 +32,51 @@
                 <font-awesome-icon icon="puzzle-piece" class="menu-icon"/>
                 <span>Third Action</span></b-dropdown-item>
             </b-dropdown>-->
-            <li class="menu-element">
-              <router-link to="/projects">
-                <font-awesome-icon icon="laptop" class="menu-icon"/>
-                <span>Проекты</span>
-              </router-link>
-            </li>
+            <b-dropdown menu-class="dropdown-elements" variant="link" class="menu-element dropdown-btn">
+              <template v-slot:button-content>
+                <font-awesome-icon icon="laptop"/>
+                <span>Projects</span>
+              </template>
+              <b-dropdown-item @click.stop to="/projects" class="menu-element"><span>All projects</span></b-dropdown-item>
+              <b-dropdown-item to="/projects/create" class="menu-element"><span>New project</span></b-dropdown-item>
+            </b-dropdown>
           </ul>
-        </div>
+        </b-collapse>
       </nav>
     </aside>
     <div class="right-panel">
       <header class="header">
         <div class="header-menu row">
-          <div class="col-sm-7">123</div>
-          <div class="col-sm-5">
-            <b-dropdown right class="user-area float-right">
+          <div class="col">
+            <b-dropdown left>
               <template v-slot:button-content>
-                Алексей
+                <font-awesome-icon icon="bell" />
+              </template>
+            </b-dropdown>
+            <b-dropdown class="ml-3" left>
+              <template v-slot:button-content>
+                <font-awesome-icon icon="envelope" />
+              </template>
+            </b-dropdown>
+          </div>
+          <div class="col">
+            <b-dropdown variant="primary" right class="user-area float-right">
+              <template v-slot:button-content>
+                {{ getUser().name }}
               </template>
               <b-dropdown-item>My Profile</b-dropdown-item>
               <b-dropdown-item to="/projects">My projects <b-badge pill variant="secondary">13</b-badge></b-dropdown-item>
               <b-dropdown-item>Settings</b-dropdown-item>
               <b-dropdown-item to="/logout">Logout</b-dropdown-item>
             </b-dropdown>
-            <div class="language-select dropdown" id="language-select">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
-                 aria-expanded="false">
-                <i class="flag-icon flag-icon-us"></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="language" x-placement="bottom-start"
-                   style="position: absolute; transform: translate3d(0px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
-                <div class="dropdown-item">
-                  <span class="flag-icon flag-icon-fr"></span>
-                </div>
-                <div class="dropdown-item">
-                  <i class="flag-icon flag-icon-es"></i>
-                </div>
-                <div class="dropdown-item">
-                  <i class="flag-icon flag-icon-us"></i>
-                </div>
-                <div class="dropdown-item">
-                  <i class="flag-icon flag-icon-it"></i>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </header>
-      <div class="breadcrumbs"></div>
+      <div class="breadcrumbs mt-2">
+        <div class="col-sm-4">
+          <h1>{{ header }}</h1>
+        </div>
+      </div>
       <div class="content mt-3">
         <slot/>
       </div>
@@ -89,17 +86,28 @@
 
 <script>
 
-  import {faPuzzlePiece, faLaptop, faTachometerAlt} from '@fortawesome/free-solid-svg-icons'
+  import {faPuzzlePiece, faLaptop, faTachometerAlt, faBell, faEnvelope, faBars} from '@fortawesome/free-solid-svg-icons'
+  import {mapGetters} from 'vuex';
 
   export default {
     name: "Main",
     props: {
-      breadcrumbs: {},
+      breadcrumbs: Array,
       header: String,
+    },
+    data() {
+      return {
+        breadcrumb: ''
+      }
+    },
+    methods: {
+      ...mapGetters('auth', [
+            'getUser'
+      ])
     },
     components: {},
     created() {
-      this.$fontAwesome.add(faPuzzlePiece, faLaptop, faTachometerAlt);
+      this.$fontAwesome.add(faPuzzlePiece, faLaptop, faTachometerAlt, faBell, faEnvelope, faBars);
     }
   }
 </script>

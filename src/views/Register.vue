@@ -228,12 +228,17 @@ export default {
         }
 
         this.$http.post('auth/register', user_data)
-          .then(response => {
-            this.setToken(response.data.access_token);
-            this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
-            this.$http.post('auth/me').then((response) => {
-              this.setUser(response.data.data);
-              this.$router.push('/');
+          .then(() => {
+            this.$http.post('auth/login', {
+              email: this.email,
+              password: this.password
+            }).then((response) => {
+              this.setToken(response.data.access_token);
+              this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+              this.$http.post('auth/me').then((response) => {
+                this.setUser(response.data.data);
+                this.$router.push('/');
+              });
             });
           }).catch(error => {
             this.errors = (error.response.data.errors);
