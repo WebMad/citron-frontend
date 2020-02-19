@@ -26,7 +26,7 @@
                 <b-form-group
                         label-cols-sm="4"
                         label-cols-lg="3"
-                        label="Номер этапа"
+                        label="Номер ресурса"
                 >
                     <b-input-group>
                         <b-form-input

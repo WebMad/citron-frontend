@@ -37,7 +37,7 @@
                                 v-model.trim="email"
                                 :state="$v.email.required && $v.email.maxLength && $v.email.email"
                                 aria-describedby="invalid_input_name"
-                                placeholder="Введите название ресурса"/>
+                                placeholder="Введите email пользователя"/>
                         <b-form-invalid-feedback v-if="!$v.email.required" id="invalid_input_name">
                             Поле обязательно для заполнения
                         </b-form-invalid-feedback>

@@ -1,7 +1,7 @@
 <template>
     <Main header="Project">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         Основная информация
@@ -13,7 +13,7 @@
                         <h3>{{ this.project.name}}</h3>
                         <p>Цель: {{ this.project.purpose ? this.project.purpose : 'Нет данных' }}</p>
                         <p>Ожидаемый результат: {{ this.project.expected_result ? this.project.expected_result : 'Нет данных' }}</p>
-                        <p>Дата начал: {{ this.project.start_date ? this.project.start_date : 'Нет данных' }}</p>
+                        <p>Дата начала: {{ this.project.start_date ? this.project.start_date : 'Нет данных' }}</p>
                         <p>Дата окончания: {{ this.project.end_date ? this.project.end_date : 'Нет данных' }}</p>
                         <p>Ожидаемая дата окончания проекта: {{ this.project.expected_date ? this.project.expected_date : 'Нет данных' }}</p>
                     </div>
