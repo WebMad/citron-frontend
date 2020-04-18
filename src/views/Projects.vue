@@ -1,19 +1,10 @@
 <template>
-  <Main header="Projects" breadcrumbs="{'dashboard'}">
-    <div class="projects">
-      123
-    </div>
-  </Main>
+  <div class="projects">123</div>
 </template>
 
 <script>
-  import Main from '@/components/dashboard/Main.vue'
-
   export default {
     name: "Projects",
-    components: {
-      Main
-    }
   }
 </script>
 
