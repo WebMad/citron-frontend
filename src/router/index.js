@@ -13,7 +13,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Главная',
     component: Home
   },
   {
@@ -41,10 +41,8 @@ const routes = [
     component: () => import('../views/Projects.vue')
   },
   {
-    path: '/index.html',
-    beforeEnter: (to, from, next) => {
-      next('/')
-    }
+    path: '*',
+    redirect: "/"
   }
 ];
 
@@ -53,9 +51,8 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
-/* eslint-disable no-console */
+
 router.beforeEach((to, from, next) => {
-  console.log(to.path);
   if (!store.getters['auth/isAuth'] && (to.path !== '/login' && to.path !== '/register')) {
     next('/login');
   }
