@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import axios from './plugins/axios'
+import Axios from 'axios/lib/axios'
 import Vuelidate from 'vuelidate'
 import Vuex from 'vuex'
 import './registerServiceWorker'
@@ -17,9 +17,16 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(Vuelidate);
 Vue.use(Vuex);
 
-Vue.prototype.$http = axios
+Vue.prototype.$http = Axios.create({
+  baseURL: `https://citron.webmadness.ru/api/`,
+  headers: {}
+});
 
 Vue.prototype.$fontAwesome = library;
+
+if (store.getters['auth/isAuth']) {
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + store.getters['auth/getToken'];
+}
 
 Vue.config.productionTip = false;
 
