@@ -37,23 +37,23 @@ const routes = [
   },
   {
     path: '/projects',
-    name: 'projects',
+    name: 'Проекты',
     component: () => import('../views/project/Projects.vue')
   },
   {
     path: '/projects/create',
-    name: 'projects.create',
+    name: 'Создать проект',
     component: () => import('../views/project/CreateProject.vue')
   },
   {
     path: '/projects/edit/:id',
-    name: 'projects.edit',
+    name: 'Редактировать проект',
     props: true,
     component: () => import('../views/project/CreateProject.vue')
   },
   {
     path: '/projects/:id',
-    name: 'projects.view',
+    name: 'Просмотр проекта',
     props: true,
     component: () => import('../views/project/Project.vue')
   },

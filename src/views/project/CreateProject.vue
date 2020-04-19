@@ -1,127 +1,121 @@
 <template>
-    <Main header="New project">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <form
-                            action=""
-                            @submit.prevent="createProject"
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form
+                        action=""
+                        @submit.prevent="createProject"
+                >
+                    <b-form-group
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Название"
                     >
-                        <b-form-group
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Название"
-                        >
-                            <b-input-group>
-                                <b-form-input
-                                        v-model.trim="name"
-                                        :state="$v.name.required && $v.name.maxLength"
-                                        aria-describedby="invalid_input_name"
-                                        placeholder="Введите название проекта"/>
-                                <b-form-invalid-feedback v-if="!$v.name.required" id="invalid_input_name">
-                                    Поле имя обязательно для заполнения
-                                </b-form-invalid-feedback>
-                                <b-form-invalid-feedback v-if="!$v.name.maxLength" id="invalid_input_name">
-                                    Длина поля Имя не должна превышать 255 символов
-                                </b-form-invalid-feedback>
-                            </b-input-group>
-                        </b-form-group>
-                        <b-form-group
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Цель проекта"
-                        >
-                            <b-input-group>
-                                <b-form-textarea
-                                        v-model="purpose"
-                                        placeholder="Введите цель проекта"
-                                />
-                            </b-input-group>
-                        </b-form-group>
-                        <b-form-group
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Ожидаемый результат"
-                        >
-                            <b-input-group>
-                                <b-form-textarea v-model="expected_result" placeholder="Что вы ждете от проекта?"/>
-                            </b-input-group>
-                        </b-form-group>
-                        <b-form-group
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Дата начала"
-                        >
-                            <b-input-group>
-                                <b-form-input
-                                        type="date"
-                                        v-model.trim="start_date"
-                                        placeholder="Введите дату начала проекта"
-                                        :state="$v.start_date.required"
-                                        aria-describedby="invalid_input_start_date"
-                                />
-                                <b-input-group-append>
-                                    <b-input-group-text>
-                                        <font-awesome-icon icon="calendar-alt"/>
-                                    </b-input-group-text>
-                                </b-input-group-append>
-                                <b-form-invalid-feedback id="invalid_input_start_date">Поле обязательно для заполнения
-                                </b-form-invalid-feedback>
-                            </b-input-group>
+                        <b-input-group>
+                            <b-form-input
+                                    v-model.trim="name"
+                                    :state="$v.name.required && $v.name.maxLength"
+                                    aria-describedby="invalid_input_name"
+                                    placeholder="Введите название проекта"/>
+                            <b-form-invalid-feedback v-if="!$v.name.required" id="invalid_input_name">
+                                Поле имя обязательно для заполнения
+                            </b-form-invalid-feedback>
+                            <b-form-invalid-feedback v-if="!$v.name.maxLength" id="invalid_input_name">
+                                Длина поля Имя не должна превышать 255 символов
+                            </b-form-invalid-feedback>
+                        </b-input-group>
+                    </b-form-group>
+                    <b-form-group
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Цель проекта"
+                    >
+                        <b-input-group>
+                            <b-form-textarea
+                                    v-model="purpose"
+                                    placeholder="Введите цель проекта"
+                            />
+                        </b-input-group>
+                    </b-form-group>
+                    <b-form-group
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Ожидаемый результат"
+                    >
+                        <b-input-group>
+                            <b-form-textarea v-model="expected_result" placeholder="Что вы ждете от проекта?"/>
+                        </b-input-group>
+                    </b-form-group>
+                    <b-form-group
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Дата начала"
+                    >
+                        <b-input-group>
+                            <b-form-input
+                                    type="date"
+                                    v-model.trim="start_date"
+                                    placeholder="Введите дату начала проекта"
+                                    :state="$v.start_date.required"
+                                    aria-describedby="invalid_input_start_date"
+                            />
+                            <b-input-group-append>
+                                <b-input-group-text>
+                                    <font-awesome-icon icon="calendar-alt"/>
+                                </b-input-group-text>
+                            </b-input-group-append>
+                            <b-form-invalid-feedback id="invalid_input_start_date">Поле обязательно для заполнения
+                            </b-form-invalid-feedback>
+                        </b-input-group>
 
-                        </b-form-group>
-                        <b-form-group
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Ожидаемая дата окончания проекта"
-                        >
-                            <b-input-group>
-                                <b-form-input
-                                        v-model="expected_date"
-                                        type="date"
-                                        :state="$v.expected_date.required"
-                                        aria-describedby="invalid_input_expected_date"
-                                />
-                                <b-input-group-append>
-                                    <b-input-group-text>
-                                        <font-awesome-icon icon="calendar-alt"/>
-                                    </b-input-group-text>
-                                </b-input-group-append>
-                                <b-form-invalid-feedback id="invalid_input_expected_date">Поле обязательно для
-                                    заполенения
-                                </b-form-invalid-feedback>
-                            </b-input-group>
-                        </b-form-group>
-                        <b-form-group
-                                v-if="!this.id"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Моя роль в проекте"
-                        >
-                            <b-form-select v-model="role_selected" :options="project_roles"/>
-                        </b-form-group>
-                        <b-button variant="primary" :disabled="isBtnDisabled" class="float-right" type="submit">
-                            {{ (id) ? 'Сохранить' : 'Создать' }}
-                        </b-button>
-                    </form>
-                </div>
+                    </b-form-group>
+                    <b-form-group
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Ожидаемая дата окончания проекта"
+                    >
+                        <b-input-group>
+                            <b-form-input
+                                    v-model="expected_date"
+                                    type="date"
+                                    :state="$v.expected_date.required"
+                                    aria-describedby="invalid_input_expected_date"
+                            />
+                            <b-input-group-append>
+                                <b-input-group-text>
+                                    <font-awesome-icon icon="calendar-alt"/>
+                                </b-input-group-text>
+                            </b-input-group-append>
+                            <b-form-invalid-feedback id="invalid_input_expected_date">Поле обязательно для
+                                заполенения
+                            </b-form-invalid-feedback>
+                        </b-input-group>
+                    </b-form-group>
+                    <b-form-group
+                            v-if="!this.id"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Моя роль в проекте"
+                    >
+                        <b-form-select v-model="role_selected" :options="project_roles"/>
+                    </b-form-group>
+                    <b-button variant="primary" :disabled="isBtnDisabled" class="float-right" type="submit">
+                        {{ (id) ? 'Сохранить' : 'Создать' }}
+                    </b-button>
+                </form>
             </div>
         </div>
-    </Main>
+    </div>
 </template>
 
 <script>
     /* eslint-disable no-console */
-    import Main from '@/components/dashboard/Main'
     import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons'
     import {required, maxLength} from 'vuelidate/lib/validators'
     import {mapGetters} from 'vuex'
 
     export default {
         name: "Create",
-        components: {
-            Main
-        },
         data() {
             return {
                 name: "",

@@ -1,5 +1,4 @@
 <template>
-    <Main header="Project">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -23,11 +22,9 @@
             <Resources :id="id" />
             <Members :id="id" />
         </div>
-    </Main>
 </template>
 
 <script>
-    import Main from '@/components/dashboard/Main.vue';
     import Stages from '@/components/project/Stages.vue';
     import Resources from '@/components/project/Resources.vue';
     import Members from '@/components/project/Members.vue';
@@ -46,7 +43,6 @@
         },
         components: {
             Members,
-            Main,
             Stages,
             Resources,
         },

@@ -4,12 +4,17 @@
             <drawer/>
             <div class="right-panel">
                 <navbar/>
-                <div class="content mt-3 ml-3">
+                <div class="breadcrumbs mt-2">
+                    <div class="col-sm-4">
+                        <h1>{{ $route.name }}</h1>
+                    </div>
+                </div>
+                <div class="content mt-3">
                     <router-view/>
                 </div>
             </div>
         </div>
-        <router-view v-else />
+        <router-view v-else/>
     </div>
 </template>
 
