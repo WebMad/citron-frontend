@@ -41,6 +41,12 @@ const routes = [
     component: () => import('../views/project/Projects.vue')
   },
   {
+    path: '/projects/:id/kanban',
+    name: 'Доска',
+    props: true,
+    component: () => import('../views/project/Kanban.vue')
+  },
+  {
     path: '/projects/create',
     name: 'Создать проект',
     component: () => import('../views/project/CreateProject.vue')

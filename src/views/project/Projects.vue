@@ -31,15 +31,19 @@
 
     import {faSearch, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
     import ProjectCard from "@/components/project/ProjectCard";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "Projects",
         components: {
             ProjectCard,
         },
+        computed: {
+            ...mapGetters('auth', ['getUser'])
+        },
         methods: {
             async updateProjectsList() {
-                this.$http.get('users/' + this.$store.getters['auth/getUser'].id + '/projects').then((response) => {
+                this.$http.get('users/' + this.getUser.id + '/projects').then((response) => {
                     this.projects = response.data.data;
                 });
             }

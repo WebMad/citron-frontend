@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <div class="header-menu row">
-            <div class="col-12">
+            <div class="col-9">
                 <b-dropdown>
                     <template v-slot:button-content>
                         <font-awesome-icon icon="bell"/>
@@ -35,7 +35,7 @@
             <div class="col-3">
                 <b-dropdown variant="primary" right class="user-area float-right">
                     <template v-slot:button-content>
-                        {{ getUser().name }}
+                        {{ getUser.name }}
                     </template>
                     <!--                            <b-dropdown-item>My Profile</b-dropdown-item>-->
                     <b-dropdown-item to="/projects">My projects
@@ -77,7 +77,7 @@
         },
         methods: {
             checkInvites() {
-                this.$http.get('users/' + this.user.id + '/invites').then((response) => {
+                this.$http.get('users/' + this.getUser.id + '/invites').then((response) => {
                     this.invites = response.data.data;
                 });
             },

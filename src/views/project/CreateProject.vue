@@ -205,13 +205,10 @@
                         })
                     })
                 }
-
-                console.log(this.project_roles);
             });
             if (this.id) {
                 this.$http.get('projects/' + this.id).then((response) => {
                     let data = response.data.data;
-                    console.log(response);
                     this.name = data.name;
                     this.purpose = data.purpose;
                     this.expected_result = data.expected_result;
