@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     Основная информация
-                    <b-button @click="$router.push('/projects/edit/' + id)" class="float-right">
+                    <b-button :v-if="this.project.can_edit" @click="$router.push('/projects/edit/' + id)" class="float-right">
                         <font-awesome-icon icon="edit"/>
                     </b-button>
                 </div>

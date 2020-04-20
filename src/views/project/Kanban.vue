@@ -1,23 +1,32 @@
 <template>
     <div class="row">
         <Menu :id="id"/>
-        <div v-for="task_stage in task_stages" v-bind:key="task_stage.id" class="col-sm-4">
+        <div class="col-sm-12 mb-3">
             <div class="card">
-                <div class="card-header">
-                    {{ task_stage.name }}
-                    <b-button class="float-right">
-                        <font-awesome-icon icon="plus"/>
+                <div class="card-body p-1">
+                    <b-button class="float-right" to="tasks/create">
+                        <font-awesome-icon icon="plus"/> добавить карточку
                     </b-button>
                 </div>
+            </div>
+        </div>
+        <div v-for="(task_stage, index) in task_stages" v-bind:key="task_stage.id" class="col-sm-4">
+            <div class="card mb-3">
+                <div class="card-header">
+                    {{ task_stage.name }}
+                </div>
                 <div class="card-body">
-                    <div v-for="task in task_stage.tasks" v-bind:key="task.id" class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>{{ task.name }}</h4>
-                                <p>Статус: {{ task.status.name }}</p>
+                    <p>Позиция: {{ task_stage.position }}</p>
+                    <draggable group="tasks" v-model="task_stages[index].tasks" :data-stage-id="task_stage.id" class="list-group" :move="movedTaskStage">
+                        <div v-for="task in task_stage.tasks" v-bind:key="task.id" class="col-sm-12 pl-0 pr-0 mb-1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <b-link :to="'tasks/' + task.id"><h4>{{ task.name }}</h4></b-link>
+                                    <p>Статус: {{ task.status.name }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </draggable>
                 </div>
             </div>
         </div>
@@ -79,40 +88,6 @@
                 </div>
             </div>
         </div>
-        <b-modal id="create-invite-modal" title="Создание приглашения">
-            <form action="" @submit.prevent="addTask">
-                <b-form-group
-                        label-cols-sm="4"
-                        label-cols-lg="3"
-                        label="E-mail"
-                >
-                    <b-input-group>
-                        <b-form-input
-                                v-model.trim="email"
-                                :state="$v.email.required && $v.email.maxLength && $v.email.email"
-                                aria-describedby="invalid_input_name"
-                                placeholder="Введите email пользователя"/>
-                        <b-form-invalid-feedback v-if="!$v.email.required" id="invalid_input_name">
-                            Поле обязательно для заполнения
-                        </b-form-invalid-feedback>
-                        <b-form-invalid-feedback v-if="!$v.email.email" id="invalid_input_name">
-                            Поля должно быть в формате email адреса
-                        </b-form-invalid-feedback>
-                        <b-form-invalid-feedback v-if="!$v.email.maxLength" id="invalid_input_name">
-                            Длина поля не должна превышать 255 символов
-                        </b-form-invalid-feedback>
-                    </b-input-group>
-                </b-form-group>
-                <b-form-group>
-                    <b-form-select v-model="selected_task_status" :options="this.task_statuses"></b-form-select>
-                </b-form-group>
-            </form>
-            <template v-slot:modal-footer>
-                <b-button @click="hideInviteModal" variant="outline-secondary">Отмена</b-button>
-                <b-button variant="primary" @click="isEdit ? editInvite() : addMember()">Сохранить</b-button>
-            </template>
-
-        </b-modal>
     </div>
 </template>
 
@@ -120,6 +95,7 @@
     import Menu from "@/components/project/Menu";
     import {required, maxLength, numeric, minValue} from 'vuelidate/lib/validators'
     import {faPlus} from "@fortawesome/free-solid-svg-icons";
+    import draggable from 'vuedraggable';
 
     export default {
         name: "Kanban",
@@ -127,7 +103,8 @@
             'id'
         ],
         components: {
-            Menu
+            Menu,
+            draggable
         },
         validations: {
             name: {
@@ -138,6 +115,21 @@
                 required,
                 numeric,
                 minValue: minValue(1)
+            },
+            task_name: {
+                required,
+                maxLength: maxLength(255)
+            },
+            implementer_id: {
+                required,
+                numeric
+            },
+            prospective_date: {
+                required
+            },
+            status_id: {
+                required,
+                numeric
             }
         },
         data() {
@@ -145,6 +137,7 @@
                 task_stages: [],
                 name: "",
                 position: 1,
+                list: [],
             }
         },
         created() {
@@ -156,7 +149,17 @@
             getTaskStages() {
                 this.$http.get('projects/' + this.id + '/kanban').then((response) => {
                     this.task_stages = response.data;
+                    this.task_stages.forEach(val => {
+                        this.list[val.id] = val.tasks;
+                    });
                 });
+            },
+            movedTaskStage(e){
+                if (e.to.dataset.stageId) {
+                    this.$http.put('project_tasks/' + e.draggedContext.element.id, {
+                        stage_id: e.to.dataset.stageId,
+                    });
+                }
             },
             createTaskStage() {
                 this.$http.post('project_task_stages', {
@@ -166,7 +169,7 @@
                 }).then(() => {
                     this.getTaskStages()
                 });
-            }
+            },
         }
     }
 </script>

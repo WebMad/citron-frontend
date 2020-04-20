@@ -64,6 +64,24 @@ const routes = [
     component: () => import('../views/project/Project.vue')
   },
   {
+    path: '/projects/:project_id/tasks/create',
+    name: 'Добавить карточку',
+    props: true,
+    component: () => import('../views/project/CreateTask')
+  },
+  {
+    path: '/projects/:project_id/tasks/:task_id',
+    name: 'Карточка',
+    props: true,
+    component: () => import('../views/project/Task')
+  },
+  {
+    path: '/projects/:project_id/tasks/:task_id/edit',
+    name: 'Редактирование карточки',
+    props: true,
+    component: () => import('../views/project/CreateTask')
+  },
+  {
     path: '*',
     redirect: "/"
   }
