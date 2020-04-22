@@ -37,8 +37,49 @@ const routes = [
   },
   {
     path: '/projects',
-    name: 'projects',
-    component: () => import('../views/Projects.vue')
+    name: 'Проекты',
+    component: () => import('../views/project/Projects.vue')
+  },
+  {
+    path: '/projects/:id/kanban',
+    name: 'Доска',
+    props: true,
+    component: () => import('../views/project/Kanban.vue')
+  },
+  {
+    path: '/projects/create',
+    name: 'Создать проект',
+    component: () => import('../views/project/CreateProject.vue')
+  },
+  {
+    path: '/projects/edit/:id',
+    name: 'Редактировать проект',
+    props: true,
+    component: () => import('../views/project/CreateProject.vue')
+  },
+  {
+    path: '/projects/:id',
+    name: 'Просмотр проекта',
+    props: true,
+    component: () => import('../views/project/Project.vue')
+  },
+  {
+    path: '/projects/:project_id/tasks/create',
+    name: 'Добавить карточку',
+    props: true,
+    component: () => import('../views/project/CreateTask')
+  },
+  {
+    path: '/projects/:project_id/tasks/:task_id',
+    name: 'Карточка',
+    props: true,
+    component: () => import('../views/project/Task')
+  },
+  {
+    path: '/projects/:project_id/tasks/:task_id/edit',
+    name: 'Редактирование карточки',
+    props: true,
+    component: () => import('../views/project/CreateTask')
   },
   {
     path: '*',
