@@ -1,5 +1,6 @@
 <template>
     <div class="col-sm-12">
+        <Menu :id="project_id" class="p-0"/>
         <div class="card">
             <div class="card-body">
                 <form action="" @submit.prevent="addTask">
@@ -82,11 +83,15 @@
 </template>
 
 <script>
+    import Menu from "@/components/project/Menu";
     import {maxLength, numeric, required} from "vuelidate/lib/validators";
     import {mapGetters} from "vuex";
 
     export default {
         name: "CreateTask",
+        components: {
+            Menu
+        },
         validations: {
             task_name: {
                 required,

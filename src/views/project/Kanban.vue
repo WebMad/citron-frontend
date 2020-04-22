@@ -10,10 +10,33 @@
                 </div>
             </div>
         </div>
-        <div v-for="(task_stage, index) in task_stages" v-bind:key="task_stage.id" class="col-sm-4">
+        <div v-for="(task_stage, index) in task_stages" :key="task_stage.id" class="col-sm-4" :edit="false">
             <div class="card mb-3">
                 <div class="card-header">
-                    {{ task_stage.name }}
+                    <template v-if="edit === task_stage.id">
+                        <b-form-input
+                          :state="$v.name.required && $v.name.maxLength"
+                          aria-describedby="invalid_input_name"
+                          placeholder="Введите новое название проекта"
+                          class="mb-1"
+                          :value="task_stage.name"
+                          @input="edit_name = $event"
+                        />
+                        <b-button class="float-right ml-1" @click="closeEdit">
+                            <font-awesome-icon icon="times"/>
+                        </b-button>
+                        <b-button class="float-right bg-success ml-1" @click="editStage(task_stage.id)">
+                            <font-awesome-icon icon="check"/>
+                        </b-button>
+                    </template>
+                    <template v-else>{{ task_stage.name }}
+                        <b-button class="float-right bg-danger ml-1" @click="deleteStage(task_stage.id)">
+                            <font-awesome-icon icon="trash"/>
+                        </b-button>
+                        <b-button class="float-right" @click="edit = task_stage.id">
+                            <font-awesome-icon icon="edit"/>
+                        </b-button>
+                     </template>
                 </div>
                 <div class="card-body">
                     <p>Позиция: {{ task_stage.position }}</p>
@@ -94,7 +117,7 @@
 <script>
     import Menu from "@/components/project/Menu";
     import {required, maxLength, numeric, minValue} from 'vuelidate/lib/validators'
-    import {faPlus} from "@fortawesome/free-solid-svg-icons";
+    import {faPlus, faEdit, faTrash, faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
     import draggable from 'vuedraggable';
 
     export default {
@@ -136,14 +159,15 @@
             return {
                 task_stages: [],
                 name: "",
+                edit: null,
+                edit_name: null,
                 position: 1,
                 list: [],
             }
         },
         created() {
-            this.$fontAwesome.add(faPlus);
+            this.$fontAwesome.add(faPlus, faEdit, faTrash, faCheck, faTimes);
             this.getTaskStages();
-            this.$fontAwesome.add();
         },
         methods: {
             getTaskStages() {
@@ -170,6 +194,23 @@
                     this.getTaskStages()
                 });
             },
+            deleteStage(id){
+                this.$http.delete(`/project_task_stages/${id}`).then(() => {
+                    this.getTaskStages()
+                })
+            },
+            closeEdit(){
+              this.edit_name = null
+              this.edit = null
+            },
+            editStage(id) {
+                this.$http.put(`/project_task_stages/${id}`, {
+                    name: this.edit_name
+                }).then(() => {
+                    this.closeEdit()
+                    this.getTaskStages()
+                })
+            }
         }
     }
 </script>

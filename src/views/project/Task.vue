@@ -6,6 +6,9 @@
                     <font-awesome-icon icon="edit"/>
                 </b-button>
                 <h3>{{ task_name }}</h3>
+                <b-button class="float-right bg-danger" @click="deleteTask(task_id)">
+                    <font-awesome-icon icon="trash"/>
+                </b-button>
                 <p>{{ description }}</p>
                 <p>
                     <b>Исполнитель: </b>
@@ -23,7 +26,7 @@
 </template>
 
 <script>
-    import {faEdit} from "@fortawesome/free-solid-svg-icons";
+    import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 
     export default {
         name: "Task",
@@ -41,7 +44,7 @@
             }
         },
         created() {
-            this.$fontAwesome.add(faEdit);
+            this.$fontAwesome.add(faEdit, faTrash);
             this.$http.get('project_tasks/' + this.task_id).then(response => {
                 this.task_name = response.data.name;
                 this.description = response.data.description;
@@ -51,6 +54,13 @@
                 this.stage = response.data.stage;
             });
         },
+        methods: {
+            deleteTask(id){
+                this.$http.delete(`/project_tasks/${id}`).then(() => {
+                    this.$router.back()
+                })
+            }
+        }
     }
 </script>
 
