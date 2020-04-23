@@ -41,7 +41,6 @@
                      </template>
                 </div>
                 <div class="card-body">
-                    <p>Позиция: {{ task_stage.position }}</p>
                     <draggable group="tasks" v-model="task_stages[index].tasks" :data-stage-id="task_stage.id" class="list-group" :move="movedTaskStage">
                         <div v-for="task in task_stage.tasks" v-bind:key="task.id" class="col-sm-12 pl-0 pr-0 mb-1">
                             <div class="card">
@@ -83,28 +82,6 @@
                                 </b-form-invalid-feedback>
                                 <b-form-invalid-feedback v-if="!$v.name.maxLength" id="invalid_input_name">
                                     Длина поля Имя не должна превышать 255 символов
-                                </b-form-invalid-feedback>
-                            </b-input-group>
-                        </b-form-group>
-                        <b-form-group
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Позиция карточки"
-                        >
-                            <b-input-group>
-                                <b-form-input
-                                        v-model.trim="position"
-                                        :state="$v.position.required && $v.position.numeric && $v.position.maxLength"
-                                        aria-describedby="invalid_input_name"
-                                        placeholder="Введите номер этапа"/>
-                                <b-form-invalid-feedback v-if="!$v.position.required" id="invalid_input_name">
-                                    Поле обязательно для заполнения
-                                </b-form-invalid-feedback>
-                                <b-form-invalid-feedback v-if="!$v.position.numeric" id="invalid_input_name">
-                                    Поле должно содержать число
-                                </b-form-invalid-feedback>
-                                <b-form-invalid-feedback v-if="!$v.position.minValue" id="invalid_input_name">
-                                    Значение не должны быть меньше 1
                                 </b-form-invalid-feedback>
                             </b-input-group>
                         </b-form-group>
@@ -192,7 +169,7 @@
             movedTaskBoard(e) {
                 if (e.newIndex !== null) {
                     this.$http.put('project_task_stages/' + e.draggedContext.element.id, {
-                        position: e.newIndex,
+                        position: e.draggedContext.futureIndex+1,
                         name: e.draggedContext.element.name
                     })
                 }
@@ -200,7 +177,6 @@
             createTaskStage() {
                 this.$http.post('project_task_stages', {
                     name: this.name,
-                    position: this.position,
                     project_id: this.id
                 }).then(() => {
                     this.getTaskStages()
