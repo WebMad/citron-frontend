@@ -1,12 +1,12 @@
 <template>
     <header class="header">
         <div class="header-menu row">
-            <div class="col-3 d-flex flex-row align-items-center">
+            <div class="col-4 d-flex flex-row align-items-center">
                 <font-awesome-icon icon="arrow-left" @click="$router.back()" style="cursor: pointer"
                                    v-if="$route.path !== '/'" class="text-primary"/>
                 <h3 class="m-0 ml-2">{{ $route.name }}</h3>
             </div>
-            <div class="col-9">
+            <div class="col-8">
                 <div class="d-flex flex-row justify-content-end">
                     <b-dropdown>
                         <template v-slot:button-content>
@@ -41,7 +41,7 @@
                     <template v-slot:button-content>
                         {{ getUser.name }}
                     </template>
-                    <!--                            <b-dropdown-item>My Profile</b-dropdown-item>-->
+                    <b-dropdown-item to="/profile">Профиль</b-dropdown-item>
                     <b-dropdown-item to="/projects">My projects
                         <!--                                <b-badge pill variant="secondary">13</b-badge>-->
                     </b-dropdown-item>
