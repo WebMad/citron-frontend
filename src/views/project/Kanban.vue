@@ -10,8 +10,10 @@
                 </div>
             </div>
         </div>
-        <div v-for="(task_stage, index) in task_stages" :key="task_stage.id" class="col-sm-4" :edit="false">
-            <div class="card mb-3">
+        <div class="col-12">
+            <draggable group="boards" v-model="task_stages" class="row" :move="movedTaskBoard">
+            <div v-for="(task_stage, index) in task_stages" :key="task_stage.id" class="col-sm-4" :edit="false">
+                <div class="card mb-3">
                 <div class="card-header">
                     <template v-if="edit === task_stage.id">
                         <b-form-input
@@ -25,7 +27,7 @@
                         <b-button class="float-right ml-1" @click="closeEdit">
                             <font-awesome-icon icon="times"/>
                         </b-button>
-                        <b-button class="float-right bg-success ml-1" @click="editStage(task_stage.id)">
+                        <b-button class="float-right bg-success ml-1" @click="editStage(task_stage.id)" :disabled="!edit_name">
                             <font-awesome-icon icon="check"/>
                         </b-button>
                     </template>
@@ -52,6 +54,8 @@
                     </draggable>
                 </div>
             </div>
+        </div>
+        </draggable>
         </div>
         <div class="col-sm-4">
             <div class="card">
@@ -183,6 +187,14 @@
                     this.$http.put('project_tasks/' + e.draggedContext.element.id, {
                         stage_id: e.to.dataset.stageId,
                     });
+                }
+            },
+            movedTaskBoard(e) {
+                if (e.newIndex !== null) {
+                    this.$http.put('project_task_stages/' + e.draggedContext.element.id, {
+                        position: e.newIndex,
+                        name: e.draggedContext.element.name
+                    })
                 }
             },
             createTaskStage() {
