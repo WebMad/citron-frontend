@@ -82,6 +82,16 @@ const routes = [
     component: () => import('../views/project/CreateTask')
   },
   {
+    path: '/profile',
+    name: 'Профиль',
+    component: () => import('../views/profile/Show')
+  },
+  {
+    path: '/edit-profile',
+    name: 'Редактировать профиль',
+    component: () => import('../views/profile/Edit')
+  },
+  {
     path: '*',
     redirect: "/"
   }
