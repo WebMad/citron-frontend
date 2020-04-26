@@ -4,6 +4,7 @@
             <div class="card-body">
                 <b-button :to="'/projects/' + id" variant="primary">Главная</b-button>
                 <b-button class="ml-3" :to="'/projects/' + id + '/kanban'" variant="primary">Доска</b-button>
+                <b-button class="ml-3" :to="'/projects/' + id + '/tasks-list'" variant="primary">Карточки</b-button>
             </div>
         </div>
     </div>

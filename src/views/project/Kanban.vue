@@ -32,7 +32,7 @@
                         </b-button>
                     </template>
                     <template v-else>{{ task_stage.name }}
-                        <b-button class="float-right bg-danger ml-1" @click="deleteStage(task_stage.id)">
+                        <b-button class="float-right btn-danger ml-1" @click="deleteStage(task_stage.id)">
                             <font-awesome-icon icon="trash"/>
                         </b-button>
                         <b-button class="float-right" @click="edit = task_stage.id">

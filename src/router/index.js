@@ -76,6 +76,12 @@ const routes = [
     component: () => import('../views/project/Task')
   },
   {
+    path: '/projects/:project_id/tasks-list',
+    name: 'Карточки',
+    props: true,
+    component: () => import('../views/project/TasksList')
+  },
+  {
     path: '/projects/:project_id/tasks/:task_id/edit',
     name: 'Редактирование карточки',
     props: true,
