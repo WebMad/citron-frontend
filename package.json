@@ -15,7 +15,7 @@
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.3.2",
     "es6-promise": "^4.2.8",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "register-service-worker": "^1.6.2",
     "sass-loader": "^8.0.0",
     "vue": "^2.6.10",
